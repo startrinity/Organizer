@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OrganizerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="OrganizerModelStoreContainer">
+          <EntitySet Name="AuthEntities" EntityType="OrganizerModel.Store.AuthEntities" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TreeItems" EntityType="OrganizerModel.Store.TreeItems" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TreeItemUrls" EntityType="OrganizerModel.Store.TreeItemUrls" store:Type="Tables" store:Schema="dbo" store:Name="TreeItemUrls">
+            <DefiningQuery>SELECT 
+      [TreeItemUrls].[TreeItemId] AS [TreeItemId], 
+      [TreeItemUrls].[Url] AS [Url]
+      FROM [dbo].[TreeItemUrls] AS [TreeItemUrls]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="TreeItems_AuthEntityId_FK" Association="OrganizerModel.Store.TreeItems_AuthEntityId_FK">
+            <End Role="AuthEntities" EntitySet="AuthEntities" />
+            <End Role="TreeItems" EntitySet="TreeItems" />
+          </AssociationSet>
+          <AssociationSet Name="TreeItems_NextSiblingId_FK" Association="OrganizerModel.Store.TreeItems_NextSiblingId_FK">
+            <End Role="TreeItems" EntitySet="TreeItems" />
+            <End Role="TreeItems1" EntitySet="TreeItems" />
+          </AssociationSet>
+          <AssociationSet Name="TreeItems_ParentId_FK" Association="OrganizerModel.Store.TreeItems_ParentId_FK">
+            <End Role="TreeItems" EntitySet="TreeItems" />
+            <End Role="TreeItems1" EntitySet="TreeItems" />
+          </AssociationSet>
+          <AssociationSet Name="TreeItemUrls_TreeItemId_FK" Association="OrganizerModel.Store.TreeItemUrls_TreeItemId_FK">
+            <End Role="TreeItems" EntitySet="TreeItems" />
+            <End Role="TreeItemUrls" EntitySet="TreeItemUrls" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AuthEntities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="RegisteredAtUtc" Type="datetime" />
+          <Property Name="LastActiveAtUtc" Type="datetime" />
+          <Property Name="RegisteredFromIpAddress" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TreeItems">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ParentId" Type="uniqueidentifier" />
+          <Property Name="Text" Type="nvarchar(max)" />
+          <Property Name="CreatedUtc" Type="datetime" Nullable="false" />
+          <Property Name="LastModifiedUtc" Type="datetime" Nullable="false" />
+          <Property Name="ShareRead" Type="bit" />
+          <Property Name="DueTimeUtc" Type="datetime" />
+          <Property Name="AuthEntityId" Type="uniqueidentifier" />
+          <Property Name="ChildrenDisplayMode" Type="varchar" MaxLength="16" />
+          <Property Name="Priority" Type="int" />
+          <Property Name="IsCollapsed" Type="bit" Nullable="false" />
+          <Property Name="LastModifiedEntityId" Type="uniqueidentifier" />
+          <Property Name="NextSiblingId" Type="uniqueidentifier" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="ShareWrite" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'Organizer.dbo.TreeItemUrls' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="TreeItemUrls">
+          <Key>
+            <PropertyRef Name="TreeItemId" />
+            <PropertyRef Name="Url" />
+          </Key>
+          <Property Name="TreeItemId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Url" Type="varchar" Nullable="false" MaxLength="150" />
+        </EntityType>
+        <Association Name="TreeItems_AuthEntityId_FK">
+          <End Role="AuthEntities" Type="OrganizerModel.Store.AuthEntities" Multiplicity="0..1" />
+          <End Role="TreeItems" Type="OrganizerModel.Store.TreeItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuthEntities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TreeItems">
+              <PropertyRef Name="AuthEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TreeItems_NextSiblingId_FK">
+          <End Role="TreeItems" Type="OrganizerModel.Store.TreeItems" Multiplicity="0..1" />
+          <End Role="TreeItems1" Type="OrganizerModel.Store.TreeItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreeItems">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TreeItems1">
+              <PropertyRef Name="NextSiblingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TreeItems_ParentId_FK">
+          <End Role="TreeItems" Type="OrganizerModel.Store.TreeItems" Multiplicity="0..1" />
+          <End Role="TreeItems1" Type="OrganizerModel.Store.TreeItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreeItems">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TreeItems1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TreeItemUrls_TreeItemId_FK">
+          <End Role="TreeItems" Type="OrganizerModel.Store.TreeItems" Multiplicity="1" />
+          <End Role="TreeItemUrls" Type="OrganizerModel.Store.TreeItemUrls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreeItems">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TreeItemUrls">
+              <PropertyRef Name="TreeItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OrganizerModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="OrganizerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TreeItems" EntityType="OrganizerModel.TreeItem" />
+          <AssociationSet Name="TreeItems_NextSiblingId_FK" Association="OrganizerModel.TreeItems_NextSiblingId_FK">
+            <End Role="TreeItem" EntitySet="TreeItems" />
+            <End Role="TreeItem1" EntitySet="TreeItems" />
+          </AssociationSet>
+          <AssociationSet Name="TreeItems_ParentId_FK" Association="OrganizerModel.TreeItems_ParentId_FK">
+            <End Role="TreeItem" EntitySet="TreeItems" />
+            <End Role="TreeItem1" EntitySet="TreeItems" />
+          </AssociationSet>
+          <EntitySet Name="TreeItemUrls" EntityType="OrganizerModel.TreeItemUrl" />
+          <AssociationSet Name="TreeItemUrls_TreeItemId_FK" Association="OrganizerModel.TreeItemUrls_TreeItemId_FK">
+            <End Role="TreeItem" EntitySet="TreeItems" />
+            <End Role="TreeItemUrl" EntitySet="TreeItemUrls" />
+          </AssociationSet>
+          <EntitySet Name="AuthEntities" EntityType="OrganizerModel.AuthEntity" />
+          <AssociationSet Name="TreeItems_AuthEntityId_FK" Association="OrganizerModel.TreeItems_AuthEntityId_FK">
+            <End Role="AuthEntity" EntitySet="AuthEntities" />
+            <End Role="TreeItem" EntitySet="TreeItems" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TreeItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="ParentId" />
+          <Property Type="String" Name="Text" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreatedUtc" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="LastModifiedUtc" Nullable="false" Precision="3" />
+          <Property Type="Boolean" Name="ShareRead" />
+          <Property Type="DateTime" Name="DueTimeUtc" Precision="3" />
+          <Property Type="Guid" Name="AuthEntityId" />
+          <Property Type="String" Name="ChildrenDisplayMode" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Priority" />
+          <Property Type="Boolean" Name="IsCollapsed" Nullable="false" />
+          <Property Type="Guid" Name="LastModifiedEntityId" />
+          <Property Type="Guid" Name="NextSiblingId" />
+          <Property Type="String" Name="Status" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TreeItems1" Relationship="OrganizerModel.TreeItems_NextSiblingId_FK" FromRole="TreeItem" ToRole="TreeItem1" />
+          <NavigationProperty Name="TreeItem1" Relationship="OrganizerModel.TreeItems_NextSiblingId_FK" FromRole="TreeItem1" ToRole="TreeItem" />
+          <NavigationProperty Name="TreeItems11" Relationship="OrganizerModel.TreeItems_ParentId_FK" FromRole="TreeItem" ToRole="TreeItem1" />
+          <NavigationProperty Name="TreeItem2" Relationship="OrganizerModel.TreeItems_ParentId_FK" FromRole="TreeItem1" ToRole="TreeItem" />
+          <NavigationProperty Name="TreeItemUrls" Relationship="OrganizerModel.TreeItemUrls_TreeItemId_FK" FromRole="TreeItem" ToRole="TreeItemUrl" />
+          <NavigationProperty Name="AuthEntity" Relationship="OrganizerModel.TreeItems_AuthEntityId_FK" FromRole="TreeItem" ToRole="AuthEntity" />
+          <Property Type="Boolean" Name="ShareWrite" />
+        </EntityType>
+        <Association Name="TreeItems_NextSiblingId_FK">
+          <End Type="OrganizerModel.TreeItem" Role="TreeItem" Multiplicity="0..1" />
+          <End Type="OrganizerModel.TreeItem" Role="TreeItem1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreeItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TreeItem1">
+              <PropertyRef Name="NextSiblingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TreeItems_ParentId_FK">
+          <End Type="OrganizerModel.TreeItem" Role="TreeItem" Multiplicity="0..1" />
+          <End Type="OrganizerModel.TreeItem" Role="TreeItem1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreeItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TreeItem1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TreeItemUrl">
+          <Key>
+            <PropertyRef Name="TreeItemId" />
+            <PropertyRef Name="Url" />
+          </Key>
+          <Property Type="Guid" Name="TreeItemId" Nullable="false" />
+          <Property Type="String" Name="Url" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TreeItem" Relationship="OrganizerModel.TreeItemUrls_TreeItemId_FK" FromRole="TreeItemUrl" ToRole="TreeItem" />
+        </EntityType>
+        <Association Name="TreeItemUrls_TreeItemId_FK">
+          <End Type="OrganizerModel.TreeItem" Role="TreeItem" Multiplicity="1" />
+          <End Type="OrganizerModel.TreeItemUrl" Role="TreeItemUrl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreeItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TreeItemUrl">
+              <PropertyRef Name="TreeItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AuthEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="RegisteredAtUtc" Precision="3" />
+          <Property Type="DateTime" Name="LastActiveAtUtc" Precision="3" />
+          <Property Type="String" Name="RegisteredFromIpAddress" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TreeItems" Relationship="OrganizerModel.TreeItems_AuthEntityId_FK" FromRole="AuthEntity" ToRole="TreeItem" />
+        </EntityType>
+        <Association Name="TreeItems_AuthEntityId_FK">
+          <End Type="OrganizerModel.AuthEntity" Role="AuthEntity" Multiplicity="0..1" />
+          <End Type="OrganizerModel.TreeItem" Role="TreeItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuthEntity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TreeItem">
+              <PropertyRef Name="AuthEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OrganizerModelStoreContainer" CdmEntityContainer="OrganizerEntities">
+          <EntitySetMapping Name="TreeItems">
+            <EntityTypeMapping TypeName="OrganizerModel.TreeItem">
+              <MappingFragment StoreEntitySet="TreeItems">
+                <ScalarProperty Name="ShareWrite" ColumnName="ShareWrite" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="NextSiblingId" ColumnName="NextSiblingId" />
+                <ScalarProperty Name="LastModifiedEntityId" ColumnName="LastModifiedEntityId" />
+                <ScalarProperty Name="IsCollapsed" ColumnName="IsCollapsed" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="ChildrenDisplayMode" ColumnName="ChildrenDisplayMode" />
+                <ScalarProperty Name="AuthEntityId" ColumnName="AuthEntityId" />
+                <ScalarProperty Name="DueTimeUtc" ColumnName="DueTimeUtc" />
+                <ScalarProperty Name="ShareRead" ColumnName="ShareRead" />
+                <ScalarProperty Name="LastModifiedUtc" ColumnName="LastModifiedUtc" />
+                <ScalarProperty Name="CreatedUtc" ColumnName="CreatedUtc" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TreeItemUrls">
+            <EntityTypeMapping TypeName="OrganizerModel.TreeItemUrl">
+              <MappingFragment StoreEntitySet="TreeItemUrls">
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="TreeItemId" ColumnName="TreeItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuthEntities">
+            <EntityTypeMapping TypeName="OrganizerModel.AuthEntity">
+              <MappingFragment StoreEntitySet="AuthEntities">
+                <ScalarProperty Name="RegisteredFromIpAddress" ColumnName="RegisteredFromIpAddress" />
+                <ScalarProperty Name="LastActiveAtUtc" ColumnName="LastActiveAtUtc" />
+                <ScalarProperty Name="RegisteredAtUtc" ColumnName="RegisteredAtUtc" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="799ee055829d412ab72915124e93f54c" Name="Diagram1">
+        <EntityTypeShape EntityType="OrganizerModel.TreeItem" Width="1.5" PointX="3.2611130826459789" PointY="18.004542001525191" />
+        <AssociationConnector Association="OrganizerModel.TreeItems_NextSiblingId_FK" />
+        <AssociationConnector Association="OrganizerModel.TreeItems_ParentId_FK" />
+        <EntityTypeShape EntityType="OrganizerModel.TreeItemUrl" Width="1.5" PointX="11.123414033615688" PointY="21.490843544477059" />
+        <AssociationConnector Association="OrganizerModel.TreeItemUrls_TreeItemId_FK" />
+        <EntityTypeShape EntityType="OrganizerModel.AuthEntity" Width="1.5" PointX="7.0720883007497006" PointY="8.4058084974092466" />
+        <AssociationConnector Association="OrganizerModel.TreeItems_AuthEntityId_FK" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

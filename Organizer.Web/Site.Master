@@ -1,0 +1,36 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Organizer.Web.Site" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10pt;">
+    <table style="background: #EEE; padding: 0px 5px">
+        <tr>         
+            <td style="vertical-align: top">
+                <a href="/" style="font-size: 20px; font-weight: bold; text-decoration: none; color: black">StarTrinity Organizer
+                <asp:Label runat="server" ID="debugModeWarning"></asp:Label></a>            
+            </td>
+           
+            <td style="vertical-align: top;">
+                <a style="color:black; margin-left: 20px" href="/Login.aspx">log in</a>
+            </td>
+            <td style="vertical-align: top;">
+                <a style="color:black; margin-left: 20px" href="/SignUp23.aspx">sign up</a>
+            </td>
+        </tr>
+       
+    </table>
+    
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+  
+
+</body>
+</html>

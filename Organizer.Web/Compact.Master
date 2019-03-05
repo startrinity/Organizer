@@ -1,0 +1,23 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Compact.master.cs" Inherits="Organizer.Web.Compact" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10pt;">
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    <div style="background: #EEE; padding-bottom: 20px; margin-top: 10px">
+        <a style="font-size: 12px; text-decoration: none; color: black" href="/">StarTrinity Organizer<asp:Label runat="server" ID="debugModeWarning"></asp:Label></a>
+         <span runat="server" ID="loggedOutSpan"> | <a style="color:black" href="/Login.aspx">log in</a></span>
+         <span runat="server" ID="loggedInSpan"> | <a style="color:black" href="/Logout.aspx">log out</a> (logged in as <asp:Label runat="server" ID="loggedInAs"></asp:Label>)</span>       
+    </div>
+   
+</body>
+</html>
