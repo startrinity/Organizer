@@ -49,7 +49,9 @@
         <li>The structure of your notes is not pre-defined, you organize the data yourself</li>
     </ul>
     <h4>Pricing</h4>
-    The StarTrinity Organizer is a free and open-source web service
+    The StarTrinity Organizer is a free and open-source web service.
+    <h4>Source code</h4>
+    Source code is available <a href="https://github.com/startrinity/Organizer">here on GitHub</a>
     <br />
     <br />
     <br />
