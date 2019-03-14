@@ -6,4 +6,26 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <my:Organizer runat="server" ID="organizer" />
     <div runat="server" ID="readonlyDisplay"></div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
 </asp:Content>
