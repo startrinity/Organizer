@@ -21,4 +21,5 @@
     [Status] VARCHAR(50) NULL,	-- [empty]=normal, currentlyExecuted, plannedAsPriority, questionable, done
 	
     [ShareWrite] BIT default 0, 
+    [AutoLoadNestedChildrenIfNotRoot] BIT default 1, 
 	)

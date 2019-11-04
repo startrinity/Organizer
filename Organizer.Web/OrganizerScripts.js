@@ -788,7 +788,7 @@ function PopupMenu_Show(e, uiElement) {
     bool2checkboxUi(uiElement.treeItem.ShareRead, shareReadCheckbox);
    
     menuDiv.appendChild(shareReadCheckbox);
-    menuDiv.appendChild(document.createTextNode('share read '));
+    menuDiv.appendChild(document.createTextNode('share r '));
     shareReadCheckbox.onclick = function () {
         if (uiElement.treeItem.ShareRead == '') uiElement.treeItem.ShareRead = 'True';
         else if (uiElement.treeItem.ShareRead == 'True') uiElement.treeItem.ShareRead = 'False';
@@ -801,12 +801,25 @@ function PopupMenu_Show(e, uiElement) {
     shareWriteCheckbox.setAttribute('type', 'checkbox');
     bool2checkboxUi(uiElement.treeItem.ShareWrite, shareWriteCheckbox);
     menuDiv.appendChild(shareWriteCheckbox);
-    menuDiv.appendChild(document.createTextNode('share write'));
+    menuDiv.appendChild(document.createTextNode('share w'));
     shareWriteCheckbox.onclick = function () {
         if (uiElement.treeItem.ShareWrite == '') uiElement.treeItem.ShareWrite = 'True';
         else if (uiElement.treeItem.ShareWrite == 'True') uiElement.treeItem.ShareWrite = 'False';
         else uiElement.treeItem.ShareWrite = '';
         bool2checkboxUi(uiElement.treeItem.ShareWrite, shareWriteCheckbox);
+        UiElement_UpdateTreeItem_IndicateSavingStatus(uiElement);
+    };
+
+
+    var autoLoadChildrenIfNotRootCheckbox = document.createElement('input');
+    autoLoadChildrenIfNotRootCheckbox.setAttribute('type', 'checkbox');
+    bool2checkboxUi(uiElement.treeItem.AutoLoadNestedChildrenIfNotRoot, autoLoadChildrenIfNotRootCheckbox);
+    menuDiv.appendChild(autoLoadChildrenIfNotRootCheckbox);
+    menuDiv.appendChild(document.createTextNode('LChIfNR'));
+    autoLoadChildrenIfNotRootCheckbox.onclick = function () {
+        if (uiElement.treeItem.AutoLoadNestedChildrenIfNotRoot == 'False') uiElement.treeItem.AutoLoadNestedChildrenIfNotRoot = 'True';
+        else uiElement.treeItem.AutoLoadNestedChildrenIfNotRoot = 'False';
+        bool2checkboxUi(uiElement.treeItem.AutoLoadNestedChildrenIfNotRoot, autoLoadChildrenIfNotRootCheckbox);
         UiElement_UpdateTreeItem_IndicateSavingStatus(uiElement);
     };
 

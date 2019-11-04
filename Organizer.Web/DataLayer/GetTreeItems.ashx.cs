@@ -106,7 +106,7 @@ namespace Organizer.Web.DataLayer
         }
         public static void GetChildTreeItemsReadonlyHtml(Guid parentId, OrganizerEntities db, List<TreeItem> result, bool fixNextSiblingId = false, bool recursive = true, StringBuilder htmlOutput = null, bool getAllItems = false)
         {
-#if DEBUG
+#if DEBUG2
             if (result.Count > 100) return;
 #endif
             var items = SortSiblings(db.TreeItems.Where(x => x.ParentId == parentId).ToList(), fixNextSiblingId, db);
@@ -123,9 +123,15 @@ namespace Organizer.Web.DataLayer
                     }
                     if (recursive)
                     {
-                        GetChildTreeItemsReadonlyHtml(item.Id, db, result, fixNextSiblingId, true, htmlOutput);
+                        if (getAllItems || item.AutoLoadNestedChildrenIfNotRoot)
+                            GetChildTreeItemsReadonlyHtml(item.Id, db, result, fixNextSiblingId, true, htmlOutput);
+                        else
+                        {
+                            if (db.TreeItems.Any(x => x.ParentId == item.Id))
+                                item.Text += " [...children]";
+                        }
                     }
-                    if (htmlOutput != null) htmlOutput.Append("</li>");
+                    if (htmlOutput != null) htmlOutput.Append("</li>");                   
                 }
             }
             if (htmlOutput != null) htmlOutput.Append("</ul>");
@@ -169,7 +175,7 @@ namespace Organizer.Web.DataLayer
                     db.SaveChanges();
 
                     result.Add(item);
-                    GetChildTreeItemsReadonlyHtml(item.Id, db, result, true);
+                    GetChildTreeItemsReadonlyHtml(item.Id, db, result, true, true);
                 }
             }
             if (result.Count != 0 && user != null)

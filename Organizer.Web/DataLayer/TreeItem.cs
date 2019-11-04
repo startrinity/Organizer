@@ -36,6 +36,7 @@ namespace Organizer.Web.DataLayer
         public Nullable<System.Guid> NextSiblingId { get; set; }
         public string Status { get; set; }
         public Nullable<bool> ShareWrite { get; set; }
+        public bool AutoLoadNestedChildrenIfNotRoot { get; set; }
     
         public virtual ICollection<TreeItem> TreeItems1 { get; set; }
         public virtual TreeItem TreeItem1 { get; set; }
