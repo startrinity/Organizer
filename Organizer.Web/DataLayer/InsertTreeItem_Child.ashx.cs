@@ -25,6 +25,7 @@ namespace Organizer.Web.DataLayer
                         LastModifiedUtc = DateTime.UtcNow,
                         ParentId = thisTreeItem.Id,
                         NextSiblingId = thisTreeItemChildren.Count != 0 ? (Guid?)thisTreeItemChildren[0].Id : null,
+                        AutoLoadNestedChildrenIfNotRoot = true
                     };
                 db.TreeItems.Add(newItem);
                 db.SaveChanges();

@@ -801,7 +801,7 @@ function PopupMenu_Show(e, uiElement) {
     shareWriteCheckbox.setAttribute('type', 'checkbox');
     bool2checkboxUi(uiElement.treeItem.ShareWrite, shareWriteCheckbox);
     menuDiv.appendChild(shareWriteCheckbox);
-    menuDiv.appendChild(document.createTextNode('share w'));
+    menuDiv.appendChild(document.createTextNode('sh. w'));
     shareWriteCheckbox.onclick = function () {
         if (uiElement.treeItem.ShareWrite == '') uiElement.treeItem.ShareWrite = 'True';
         else if (uiElement.treeItem.ShareWrite == 'True') uiElement.treeItem.ShareWrite = 'False';
